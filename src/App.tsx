@@ -1,8 +1,9 @@
-function App() {
+import HomePage from "./pages/HomePage";
+
+export default function App() {
   return (
-    <div className="p-8">
-      <button className="btn btn-primary">تست DaisyUI</button>
+    <div className="min-h-screen bg-base-200">
+      <HomePage />
     </div>
   );
 }
-export default App;
