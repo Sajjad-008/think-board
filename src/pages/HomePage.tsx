@@ -3,6 +3,7 @@ import { useNotes } from "../hooks/useNotes";
 import NoteCard from "../components/NoteCard";
 import Navbar from "../components/Navbar";
 import type { Note } from "../types/note";
+import NoteFormModal from "../components/NoteFormModal";
 
 type ModalState =
   | { type: "none" }
@@ -49,6 +50,15 @@ export default function HomePage() {
           </div>
         )}
       </main>
+      {modal.type === "create" && (
+        <NoteFormModal onClose={() => setModal({ type: "none" })} />
+      )}
+      {modal.type === "edit" && (
+        <NoteFormModal
+          note={modal.note}
+          onClose={() => setModal({ type: "none" })}
+        />
+      )}
     </>
   );
 }
