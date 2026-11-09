@@ -1,6 +1,5 @@
 import { api } from "./axios";
 import type { ApiResponse, Note, NoteInput } from "../types/note";
-import { data } from "react-router-dom";
 
 export const getNotes = async (): Promise<Note[]> => {
   const { data } = await api.get<ApiResponse<Note[]>>("/notes");
