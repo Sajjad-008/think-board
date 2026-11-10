@@ -1,5 +1,7 @@
 import axios from "axios";
 
 export const api = axios.create({
-  baseURL: "https://thinkboard.codewithmmd.ir/api",
+  baseURL: import.meta.env.DEV
+    ? "https://thinkboard.codewithmmd.ir/api"
+    : "/api",
 });
