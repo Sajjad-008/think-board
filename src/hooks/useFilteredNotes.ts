@@ -22,8 +22,10 @@ export const useFilteredNotes = (
 
     return [...filtered].sort((a, b) => {
       if (sort === "title") return a.title.localeCompare(b.title);
-      const diff =
-        new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
-      return sort === "neweset" ? -diff : diff;
+
+      const aTime = new Date(a.createdAt).getTime();
+      const bTime = new Date(b.createdAt).getTime();
+
+      return sort === "newest" ? bTime - aTime : aTime - bTime;
     });
   }, [notes, search, sort]);
