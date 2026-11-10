@@ -19,9 +19,13 @@ export default function Navbar({ onCreate }: Props) {
           >
             {theme === "honey-light" ? <Moon size={18} /> : <Sun size={18} />}
           </button>
-          <button className="btn btn-primary btn-sm" onClick={onCreate}>
+          <button
+            className="btn btn-primary btn-sm"
+            aria-label="یادداشت جدید"
+            onClick={onCreate}
+          >
             <Plus size={18} />
-            یادداشت جدید
+            <span className="hidden sm:inline">یادداشت جدید</span>
           </button>
         </div>
       </div>
