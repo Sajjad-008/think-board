@@ -33,7 +33,7 @@ export default function NoteDetailModal({
           <p>آخرین ویرایش: {formatDate(note.updatedAt)}</p>
         </div>
 
-        <div className="modal-action">
+        <div className="modal-action flex-wrap">
           <button className="btn" onClick={onClose}>
             بستن
           </button>
