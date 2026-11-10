@@ -46,30 +46,34 @@ export default function NoteFormModal({ note, onClose }: Props) {
         </h3>
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-          <label className="form-control">
-            <span className="mb-1 block text-sm">عنوان</span>
+          <label className="flex flex-col gap-1">
+            <span className="text-sm">عنوان</span>
             <input
               type="text"
-              className={`input input-bordered w-full ${errors.title ? "input-error" : ""}`}
+              className={`input w-full border border-base-content/30 bg-base-200 ${
+                errors.title ? "input-error" : ""
+              }`}
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               disabled={isPending}
             />
             {errors.title && (
-              <span className="mt-1 text-xs text-error">{errors.title}</span>
+              <span className="text-xs text-error">{errors.title}</span>
             )}
           </label>
 
-          <label className="form-control">
-            <span className="mb-1 block text-sm">توضیحات</span>
+          <label className="flex flex-col gap-1">
+            <span className="text-sm">توضیحات</span>
             <textarea
-              className={`textarea textarea-bordered h-32 w-full ${errors.content ? "textarea-error" : ""}`}
+              className={`textarea h-32 min-h-32 w-full resize-none border border-base-content/30 bg-base-200 ${
+                errors.content ? "textarea-error" : ""
+              }`}
               value={content}
               onChange={(e) => setContent(e.target.value)}
               disabled={isPending}
             />
             {errors.content && (
-              <span className="mt-1 text-xs text-error">{errors.content}</span>
+              <span className="text-xs text-error">{errors.content}</span>
             )}
           </label>
           <div className="modal-action mt-0">
