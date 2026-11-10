@@ -9,7 +9,7 @@ export default function NoteCard({ note, onClick }: Props) {
   return (
     <button
       onClick={() => onClick(note)}
-      className="card bg-base-100 border border-base-300 text-start shadow-sm transition hover:-translate-y-1 hover: shadow-md"
+      className="card bg-base-100 border border-base-300 text-start shadow-sm transition hover:-translate-y-1 hover:shadow-md"
     >
       <div className="card-body">
         <h2 className="card-title line-clamp-1">{note.title}</h2>

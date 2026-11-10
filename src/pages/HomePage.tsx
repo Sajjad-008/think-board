@@ -6,6 +6,10 @@ import NoteFormModal from "../components/NoteFormModal";
 import NoteDetailModal from "../components/NoteDetailModal";
 import ConfirmDeleteModal from "../components/ConfirmDeleteModal";
 import type { Note } from "../types/note";
+import NotesToolbar, { type SortOption } from "../components/NotesToolbar";
+import NoteSkeleton from "../components/NoteSkeleton";
+import EmptyState from "../components/EmptyState";
+import { useFilteredNotes } from "../hooks/useFilteredNotes";
 
 type ModalState =
   | { type: "none" }
@@ -20,16 +24,14 @@ export default function HomePage() {
 
   const closeModal = () => setModal({ type: "none" });
 
+  const [search, setSearch] = useState("");
+  const [sort, setSort] = useState<SortOption>("newest");
+  const visibleNotes = useFilteredNotes(notes, search, sort);
+
   return (
     <>
       <Navbar onCreate={() => setModal({ type: "create" })} />
       <main className="mx-auto max-w-6xl p-4">
-        {isLoading && (
-          <div className="flex justify-center py-20">
-            <span className="loading loading-spinner loading-lg text-primary" />
-          </div>
-        )}
-
         {isError && (
           <div className="alert alert-error mx-auto my-10 max-w-md">
             <span>خطا در دریافت یادداشت‌ها</span>
@@ -39,13 +41,34 @@ export default function HomePage() {
           </div>
         )}
 
-        {notes && notes.length === 0 && (
-          <p className="py-20 text-center">هنوز یادداشتی وجود ندارد.</p>
+        {!isError && (
+          <NotesToolbar
+            search={search}
+            onSearchChange={setSearch}
+            sort={sort}
+            onSortChange={setSort}
+          />
         )}
 
-        {notes && notes.length > 0 && (
+        {isLoading && (
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {notes.map((note) => (
+            {Array.from({ length: 6 }).map((_, i) => (
+              <NoteSkeleton key={i} />
+            ))}
+          </div>
+        )}
+
+        {notes && visibleNotes.length === 0 && (
+          <EmptyState
+            isSearching={search.trim() !== ""}
+            onCreate={() => setModal({ type: "create" })}
+            onClearSearch={() => setSearch("")}
+          />
+        )}
+
+        {visibleNotes.length > 0 && (
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {visibleNotes.map((note) => (
               <NoteCard
                 key={note.id}
                 note={note}
